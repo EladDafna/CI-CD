@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     environment {
         DOCKERHUB_USER = credentials('DOCKERHUB_USER')
         DOCKERHUB_PASSWORD = credentials('DOCKERHUB_PASSWORD')
