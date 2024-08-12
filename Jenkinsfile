@@ -4,16 +4,16 @@ pipeline {
         DOCKERHUB_PASSWORD = credentials('DOCKERHUB_PASSWORD')
     }
     stages {
-        stage ('Pull From GitHub - Stage 1') {
+        stage('Pull From GitHub - Stage 1') {
             steps {
                 sh 'ls -la'
             }
         }
-    }
-        stage ('Create docker Image - Stage 2') {
+        stage('Create Docker Image - Stage 2') {
             steps {
                 sh 'docker build -t my-image:1.0.0 .'
-                sh 'docker image'
+                sh 'docker image ls'
             }
         }
+    }
 }
