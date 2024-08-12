@@ -5,13 +5,13 @@ pipeline {
     }
     stages {
         stage ('Pull From GitHub - Stage 1') {
-            step {
+            steps {
                 sh 'ls -la'
             }
         }
     }
         stage ('Create docker Image - Stage 2') {
-            step {
+            steps {
                 sh 'docker build -t my-image:1.0.0 .'
                 sh 'docker image'
             }
