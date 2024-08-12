@@ -10,9 +10,10 @@ pipeline {
             }
         }
     }
-    stage ('Create docker Image - Stage 2') {
-      step {
-        sh 'docker build -t my-image:1.0.0 .'
-        sh 'docker image'
-    }
+        stage ('Create docker Image - Stage 2') {
+            step {
+                sh 'docker build -t my-image:1.0.0 .'
+                sh 'docker image'
+            }
+        }
 }
