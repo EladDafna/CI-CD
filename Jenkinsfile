@@ -16,15 +16,24 @@ pipeline {
                 sh 'docker image ls'
             }
         }
-    }
         stage('Push to DockerHub - Stage 3') {
             steps {
-                sh """
-                docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
-                docker tag my-image:1.0.0 eladdafna/my-image:1.0.0
-                docker push
-                docker images
-                """
+                script {
+                    // Login to Docker Hub
+                    sh """
+                    echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_USER} --password-stdin
+                    """
+                    
+                    // Tag the image
+                    sh 'docker tag my-image:1.0.0 ${DOCKERHUB_USER}/my-image:1.0.0'
+                    
+                    // Push the image
+                    sh 'docker push ${DOCKERHUB_USER}/my-image:1.0.0'
+                    
+                    // List Docker images
+                    sh 'docker images'
+                }
             }
         }
+    }
 }
