@@ -1,13 +1,14 @@
-FROM ubuntu:latest
+FROM ubuntu
 
 ENV TZ=Asia/Jerusalem 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone 
 
-RUN apt-get update && \
-    apt-get install -y && \
-    apache2 apache2-utils && \
-    apt-get clean
-    
+RUN apt update
+RUN apt install apache2 -y 
+RUN apt install apache2-utils -y
+RUN apt clean 
+
+
 RUN mkdir -p /var/www/html
 COPY index.html /var/www/html
 
