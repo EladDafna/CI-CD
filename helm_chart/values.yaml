@@ -1,0 +1,17 @@
+---
+
+replicaCount: 3
+
+containers:
+  image: eladdafna/my-image:1.0.0
+  
+resources:
+  cpu: 0.1
+  memory: 100Mi
+limits:
+  cpu: 0.25
+  memory: 100Mi
+  
+rollingUpdate:
+  maxSurge: 2
+  maxUnavailable: 1
