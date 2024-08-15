@@ -4,7 +4,7 @@ metadata:
   name: my-app-argocd
   namespace: default
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: my-app-argocd
@@ -14,13 +14,14 @@ spec:
         app: my-app-argocd
     spec:
       containers:
-      - name: my-app-container
-        image: "$(DOCKER_USERNAME)/my-image:1.0.0"
+      - name: my-app-argocd
+        image: eladdafna/my-image:1.0.0
         ports:
         - containerPort: 80
-        env:
-        - name: DOCKER_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: my-app-config
-              key: DOCKER_USERNAME
+        volumeMounts:
+        - name: std-apache-volume
+          mountPath: /var/www/html/
+      volumes:
+      - name: std-apache-volume
+        persistentVolumeClaim:
+          claimName: std-apache-pvc
