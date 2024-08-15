@@ -18,10 +18,3 @@ spec:
         image: eladdafna/my-image:1.0.0
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: std-apache-volume
-          mountPath: /var/www/html/
-      volumes:
-      - name: std-apache-volume
-        persistentVolumeClaim:
-          claimName: std-apache-pvc
