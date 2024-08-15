@@ -23,6 +23,9 @@ spec:
         image: {{ .Values.containers.image }}
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: std-apache-volume
+          mountPath: /usr/local/apache2/htdocs
         resources:
           requests:
             cpu: {{ .Values.resources.cpu }}
@@ -30,4 +33,7 @@ spec:
           limits:
             cpu: {{ .Values.limits.cpu }}
             memory: {{ .Values.limits.memory }}
-
+      volumes:
+      - name: std-apache-volume
+        persistentVolumeClaim:
+          claimName: std-apache-pvc
