@@ -29,7 +29,7 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 3. **Helm Chart Usage:**
    - Helm is used to manage Kubernetes applications with a consistent deployment strategy.
    - **`values.yaml`:** Configuration file that customizes the deployment parameters.
-     **`Chart.yaml`:** file is a crucial component of our Helm chart, containing metadata about the chart such as its name, version, and description. Here's a brief overview of its contents:
+   -  **`Chart.yaml`:** file is a crucial component of our Helm chart, containing metadata about the chart such as its name, version, and description. Here's a brief overview of its contents:
 ```yaml
 apiVersion: v2
 name: my-application
