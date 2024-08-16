@@ -1,6 +1,6 @@
 ---
 
-replicaCount: 3
+replicaCount: 2
 
 containers:
   image: eladdafna/my-image:1.0.0
