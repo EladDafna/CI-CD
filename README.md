@@ -34,7 +34,7 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 apiVersion: v2
 name: my-application
 version: 1.0.0
-description: A Helm chart for deploying our application to Kubernetes
+description: A Helm chart for deploying our application to Kubernetes```
 
 4. **ArgoCD Integration:**
    - ArgoCD continuously monitors the GitHub repository.
