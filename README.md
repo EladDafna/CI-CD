@@ -2,7 +2,6 @@
 
 <img src="https://github.com/user-attachments/assets/bf839f1a-75d7-4e46-b688-904194f02c09" width="700"/>
 
-
 ### Project Summary
 This project demonstrates a complete CI/CD pipeline that automates the process from code integration to deployment in a Kubernetes environment. It ensures continuous integration, testing, security checks, and deployment.
 
@@ -14,12 +13,24 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 - **ArgoCD:** Continuous deployment management.
 - **GitHub:** Version control and code repository.
 
+
+```markdown
 ### Setup Instructions
 
-#### Step 1: Install Docker
+#### Step 1: Clone the GitHub Repository
+1. **Fork the Repository:**
+   - Fork this repository from [here](https://github.com/EladDafna/CI-CD).
+
+2. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/EladDafna/CI-CD.git
+   cd CI-CD
+   ```
+
+#### Step 2: Install Docker
 Docker is required to build and run containers. To install Docker:
 
-1. **For Linux:**
+**For Linux:**
    ```bash
    sudo apt-get update
    sudo apt-get install -y docker.io
@@ -27,7 +38,7 @@ Docker is required to build and run containers. To install Docker:
    sudo systemctl enable docker
    ```
 
-#### Step 2: Install Jenkins
+#### Step 3: Install Jenkins
 Jenkins automates your CI/CD pipeline. You can install Jenkins using Docker:
 
 1. **Run Jenkins Container:**
@@ -39,12 +50,10 @@ Jenkins automates your CI/CD pipeline. You can install Jenkins using Docker:
    - Open your browser and navigate to `http://localhost:8080`.
    - Follow the on-screen instructions to complete the setup.
 
-#### Step 3: Install Kubernetes (Minikube or Kind)
+#### Step 4: Install Kubernetes (Minikube or Kind)
 Kubernetes is required for deploying and managing your application.
 
-
-
-3. **Start Kubernetes Cluster:**
+**Start Kubernetes Cluster:**
    - **Minikube:**
      ```bash
      minikube start
@@ -54,46 +63,48 @@ Kubernetes is required for deploying and managing your application.
      kind create cluster
      ```
 
-#### Step 4: Install Helm
+#### Step 5: Install Helm
 Helm helps manage Kubernetes applications. To install Helm:
 
-1. **Install Helm on Linux/MacOS:**
+**Install Helm on Linux/MacOS:**
    ```bash
    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
    ```
 
-
-#### Step 5: Install ArgoCD
+#### Step 6: Install ArgoCD
 ArgoCD manages continuous deployment in Kubernetes.
 
-1. **Install ArgoCD CLI:**
-   ```bash
-   curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-   chmod +x /usr/local/bin/argocd
-   ```
-
-2. **Install ArgoCD in Kubernetes:**
+**Install ArgoCD in Kubernetes:**
    ```bash
    kubectl create namespace argocd
    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
    ```
 
-3. **Access ArgoCD:**
+**Access ArgoCD:**
    - Forward the ArgoCD server port:
      ```bash
      kubectl port-forward svc/argocd-server -n argocd 8080:443
      ```
    - Open your browser and navigate to `https://localhost:8080`.
+   - Log in with the default username `admin` and retrieve the password with the following command:
+     ```bash
+     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+     ```
 
-#### Step 6: Configure GitHub Repository
-1. **Fork the Repository:**
-   - Fork this repository from [here](https://github.com/EladDafna/CI-CD).
+### Deploy the Application via ArgoCD
 
-2. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/EladDafna/CI-CD.git
-   cd CI-CD
-   ```
+1. **In the ArgoCD web UI, create a new application with the following settings:**
+
+   - **Application Name:** `my-app`
+   - **Project:** `default`
+   - **Sync Policy:** `Automatic`
+   - **Repository URL:** `https://github.com/EladDafna/CI-CD.git`
+   - **Revision:** `main`
+   - **Path:** `k8s`
+   - **Cluster URL:** `https://kubernetes.default.svc`
+   - **Namespace:** `default`
+
+2. **Click `Create` and then `Sync` to deploy the application.**
 
 #### Step 7: Configure Jenkins Pipeline
 1. **Create a New Pipeline Job:**
@@ -114,7 +125,8 @@ ArgoCD manages continuous deployment in Kubernetes.
    - After the pipeline completes, verify that the application is deployed successfully in your Kubernetes cluster:
      ```bash
      kubectl get all
-     ```
+
+
 
 ### Project Explanation
 
@@ -138,6 +150,16 @@ name: my-application
 version: 1.0.0
 description: A Helm chart for deploying our application to Kubernetes
 ```
+
+4. **ArgoCD Integration:**
+   - ArgoCD continuously monitors the GitHub repository.
+   - Automatically updates the Kubernetes cluster with the latest changes by applying the Helm chart configurations.
+
+This setup ensures a seamless and automated process from code commit to production deployment.
+
+---
+
+You can replace your existing `README.md` content with this updated version to include detailed setup instructions.
 
 4. **ArgoCD Integration:**
    - ArgoCD continuously monitors the GitHub repository.
