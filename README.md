@@ -14,7 +14,6 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 - **GitHub:** Version control and code repository.
 
 
-```markdown
 ### Setup Instructions
 
 #### Step 1: Clone the GitHub Repository
@@ -156,15 +155,3 @@ description: A Helm chart for deploying our application to Kubernetes
    - Automatically updates the Kubernetes cluster with the latest changes by applying the Helm chart configurations.
 
 This setup ensures a seamless and automated process from code commit to production deployment.
-
----
-
-You can replace your existing `README.md` content with this updated version to include detailed setup instructions.
-
-4. **ArgoCD Integration:**
-   - ArgoCD continuously monitors the GitHub repository.
-   - Automatically updates the Kubernetes cluster with the latest changes by applying the Helm chart configurations.
-
-This setup ensures a seamless and automated process from code commit to production deployment.
-
-
