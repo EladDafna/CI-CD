@@ -14,6 +14,108 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 - **ArgoCD:** Continuous deployment management.
 - **GitHub:** Version control and code repository.
 
+### Setup Instructions
+
+#### Step 1: Install Docker
+Docker is required to build and run containers. To install Docker:
+
+1. **For Linux:**
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y docker.io
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
+
+#### Step 2: Install Jenkins
+Jenkins automates your CI/CD pipeline. You can install Jenkins using Docker:
+
+1. **Run Jenkins Container:**
+   ```bash
+   docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+   ```
+
+2. **Access Jenkins:**
+   - Open your browser and navigate to `http://localhost:8080`.
+   - Follow the on-screen instructions to complete the setup.
+
+#### Step 3: Install Kubernetes (Minikube or Kind)
+Kubernetes is required for deploying and managing your application.
+
+
+
+3. **Start Kubernetes Cluster:**
+   - **Minikube:**
+     ```bash
+     minikube start
+     ```
+   - **Kind:**
+     ```bash
+     kind create cluster
+     ```
+
+#### Step 4: Install Helm
+Helm helps manage Kubernetes applications. To install Helm:
+
+1. **Install Helm on Linux/MacOS:**
+   ```bash
+   curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+   ```
+
+
+#### Step 5: Install ArgoCD
+ArgoCD manages continuous deployment in Kubernetes.
+
+1. **Install ArgoCD CLI:**
+   ```bash
+   curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+   chmod +x /usr/local/bin/argocd
+   ```
+
+2. **Install ArgoCD in Kubernetes:**
+   ```bash
+   kubectl create namespace argocd
+   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+   ```
+
+3. **Access ArgoCD:**
+   - Forward the ArgoCD server port:
+     ```bash
+     kubectl port-forward svc/argocd-server -n argocd 8080:443
+     ```
+   - Open your browser and navigate to `https://localhost:8080`.
+
+#### Step 6: Configure GitHub Repository
+1. **Fork the Repository:**
+   - Fork this repository from [here](https://github.com/EladDafna/CI-CD).
+
+2. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/EladDafna/CI-CD.git
+   cd CI-CD
+   ```
+
+#### Step 7: Configure Jenkins Pipeline
+1. **Create a New Pipeline Job:**
+   - Go to Jenkins dashboard, select "New Item", and choose "Pipeline".
+   - Configure the pipeline to use your GitHub repository.
+
+2. **Add Credentials:**
+   - Add your Docker Hub and GitHub credentials to Jenkins.
+
+3. **Configure Pipeline Script:**
+   - Use the `Jenkinsfile` from the repository or create your own.
+
+#### Step 8: Deploy the Application
+1. **Run the Pipeline:**
+   - Trigger the Jenkins pipeline to run through the entire CI/CD process.
+
+2. **Check Deployment in Kubernetes:**
+   - After the pipeline completes, verify that the application is deployed successfully in your Kubernetes cluster:
+     ```bash
+     kubectl get all
+     ```
+
 ### Project Explanation
 
 1. **Pipeline Setup:** 
@@ -29,7 +131,7 @@ This project demonstrates a complete CI/CD pipeline that automates the process f
 3. **Helm Chart Usage:**
    - Helm is used to manage Kubernetes applications with a consistent deployment strategy.
    - **`values.yaml`:** Configuration file that customizes the deployment parameters.
-   -  **`Chart.yaml`:** file is a crucial component of our Helm chart, containing metadata about the chart such as its name, version, and description. Here's a brief overview of its contents:
+   - **`Chart.yaml`:** file is a crucial component of our Helm chart, containing metadata about the chart such as its name, version, and description. Here's a brief overview of its contents:
 ```yaml
 apiVersion: v2
 name: my-application
@@ -37,11 +139,10 @@ version: 1.0.0
 description: A Helm chart for deploying our application to Kubernetes
 ```
 
-4.  **ArgoCD Integration:**
+4. **ArgoCD Integration:**
    - ArgoCD continuously monitors the GitHub repository.
    - Automatically updates the Kubernetes cluster with the latest changes by applying the Helm chart configurations.
 
 This setup ensures a seamless and automated process from code commit to production deployment.
-
 
 
