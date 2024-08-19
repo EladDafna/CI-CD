@@ -1,6 +1,6 @@
 # CI-CD
 
-<img src="https://github.com/user-attachments/assets/edd9a443-dbf9-4fcc-aa11-6f4c28dacd7a" width="700"/>
+<img src="https://github.com/user-attachments/assets/c2ef74a6-fac2-491a-8e0c-c958d0877c48" width="700"/>
 
 
 ### Project Summary
