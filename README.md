@@ -1,6 +1,7 @@
 # CI-CD
 
-<img src="https://github.com/user-attachments/assets/2b9ab665-e539-4b32-a0f6-13d7ebe2cb1e" width="700"/>
+<img src="https://github.com/user-attachments/assets/edd9a443-dbf9-4fcc-aa11-6f4c28dacd7a" width="700"/>
+
 
 ### Project Summary
 This project demonstrates a complete CI/CD pipeline that automates the process from code integration to deployment in a Kubernetes environment. It ensures continuous integration, testing, security checks, and deployment.
